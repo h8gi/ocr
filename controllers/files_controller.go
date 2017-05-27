@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -57,7 +56,7 @@ func PostFile(c echo.Context) error {
 	if err := DB.Create(f).Error; err != nil {
 		return err
 	}
-	return c.String(http.StatusOK, fmt.Sprintf("%v", file.Header))
+	return c.String(http.StatusOK, f.Text)
 }
 
 // get file contents (GET /api/files/:name)
