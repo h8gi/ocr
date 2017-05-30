@@ -1,32 +1,5 @@
-function updateFileList() {
-  axios.get('/api/files')
-    .then(function (response) {
-      filelist.files = response.data
-    })
-    .catch(function (error) {
-      console.log(response)
-    })
-}
-
 var MyVue = Vue.extend({
   delimiters: ['((', '))'],
-  methods: {
-    deleteFile: function(e) {
-      
-    }
-  }
-})
-
-var filelist = new MyVue({
-  el: '#filelist',
-  data: {
-    files: []
-  }
-})
-updateFileList()
-
-var uploader = new MyVue({
-  el: '#uploader',
   methods: {
     uploadFile: function(e){
       e.preventDefault()
@@ -41,6 +14,32 @@ var uploader = new MyVue({
       }).catch(function (error) {
         console.log(error)
       })
+    },
+    updateFileList: function(e) {
+      axios.get('/api/files')
+        .then(function (response) {
+          filelist.files = response.data
+        })
+        .catch(function (error) {
+          console.log(response)
+        })
+    }    
+  }
+})
+
+var filelist = new MyVue({
+  el: '#filelist',
+  data: {
+    files: []
+  },
+  methods: {
+    deleteFile: function(e) {
+      axios.delete('/api/files' + '/')
     }
   }
+})
+filelist.updateFileList()
+
+var uploader = new MyVue({
+  el: '#uploader'
 })
