@@ -11,13 +11,14 @@
           <p>
             (( file.text ))
           </p>
+          <button @click="deleteFile">DELETE</button>
         </li>
       </ul>
     </section>
 
     <section id="uploader">
       <h2>FILE UPLOAD</h2>
-      <input type="file" name="file" @change="upload">
+      <input type="file" name="file" @change="uploadFile">
     </section>
    
     <script src="/static/js/app.js"></script>

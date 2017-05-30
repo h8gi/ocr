@@ -9,7 +9,12 @@ function updateFileList() {
 }
 
 var MyVue = Vue.extend({
-  delimiters: ['((', '))']
+  delimiters: ['((', '))'],
+  methods: {
+    deleteFile: function(e) {
+      
+    }
+  }
 })
 
 var filelist = new MyVue({
@@ -23,7 +28,7 @@ updateFileList()
 var uploader = new MyVue({
   el: '#uploader',
   methods: {
-    upload: function(e){
+    uploadFile: function(e){
       e.preventDefault()
       var files = e.target.files || e.dataTransfer.files
       var data = new FormData()
