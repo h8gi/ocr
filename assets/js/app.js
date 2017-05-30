@@ -10,5 +10,5 @@ var MyVue = Vue.extend({
 // })
 
 var uploader = new MyVue({
-  el: ''
+  el: 'uploader'
 })
