@@ -8,3 +8,7 @@ var MyVue = Vue.extend({
 //     message: 'Hello Vue!'
 //   }  
 // })
+
+var uploader = new MyVue({
+  el: ''
+})
