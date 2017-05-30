@@ -74,6 +74,10 @@ func UpdateFile(c echo.Context) error {
 	return c.String(http.StatusServiceUnavailable, "todo: update file")
 }
 
+func DeleteFile(c echo.Context) error {
+	return c.String(http.StatusServiceUnavailable, "todo: delete file")
+}
+
 // get file informations (GET /api/files/:name/info)
 func GetFileInfo(c echo.Context) error {
 	// name := c.Param("name")

@@ -14,7 +14,7 @@ import (
 
 func main() {
 	db, err := gorm.Open("postgres",
-		"host=localhost user=yagi dbname=gomi sslmode=disable password=mypassword")
+		"host=localhost user=yagihiroki dbname=gomi sslmode=disable password=mypassword")
 	if err != nil {
 		panic("failed to connect database")
 	}
@@ -36,18 +36,20 @@ func main() {
 	e.Use(middleware.Recover())
 
 	e.Static("/static", "assets")
-	e.GET("/", func(c echo.Context) error {
-		return c.Render(http.StatusOK, "index", nil)
-	})
 
-	e.GET("/api/files", controllers.ShowAllFiles)
-	e.POST("/api/files", controllers.PostFile)
+	w := e.Group("/web")
+	w.GET("", controllers.WebIndex)
 
-	e.GET("/api/files/:name", controllers.GetFile)
-	e.PUT("/api/files/:name", controllers.UpdateFile)
+	a := e.Group("/api")
+	a.GET("/files", controllers.ShowAllFiles)
+	a.POST("/files", controllers.PostFile)
 
-	e.GET("/api/files/:name/info", controllers.GetFileInfo)
-	e.PUT("/api/files/:name/info", controllers.UpdateFileInfo)
+	a.GET("/files/:name", controllers.GetFile)
+	a.PUT("/files/:name", controllers.UpdateFile)
+	a.DELETE("/files/:name", controllers.DeleteFile)
+
+	a.GET("/files/:name/info", controllers.GetFileInfo)
+	a.PUT("/files/:name/info", controllers.UpdateFileInfo)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
