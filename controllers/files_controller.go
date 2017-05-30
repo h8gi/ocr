@@ -74,8 +74,17 @@ func UpdateFile(c echo.Context) error {
 	return c.String(http.StatusServiceUnavailable, "todo: update file")
 }
 
+// delete file (DELETE /api/files/:name)
 func DeleteFile(c echo.Context) error {
-	return c.String(http.StatusServiceUnavailable, "todo: delete file")
+	name := c.Param("name")
+	f := new(models.File)
+	if DB.First(f, "name = ?", name).RecordNotFound() {
+		return c.String(http.StatusNotFound, "file not found")
+	}
+	if err := DB.Unscoped().Delete(f).Error; err != nil {
+		return err
+	}
+	return c.String(http.StatusOK, name+" was deleted.")
 }
 
 // get file informations (GET /api/files/:name/info)

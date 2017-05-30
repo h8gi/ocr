@@ -14,7 +14,7 @@ import (
 
 func main() {
 	db, err := gorm.Open("postgres",
-		"host=localhost user=yagi dbname=gomi sslmode=disable password=mypassword")
+		"host=localhost user=yagihiroki dbname=gomi sslmode=disable password=mypassword")
 	if err != nil {
 		panic("failed to connect database")
 	}
@@ -41,6 +41,7 @@ func main() {
 	w.GET("", controllers.WebIndex)
 
 	a := e.Group("/api")
+	a.Use(middleware.CORS())
 	a.GET("/files", controllers.ShowAllFiles)
 	a.POST("/files", controllers.PostFile)
 

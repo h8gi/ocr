@@ -1,6 +1,8 @@
 package models
 
 import (
+	"os"
+
 	"github.com/jinzhu/gorm"
 	"github.com/otiai10/gosseract"
 )
@@ -17,4 +19,8 @@ type File struct {
 func (f *File) BeforeCreate() (err error) {
 	f.Text = gosseract.Must(gosseract.Params{Src: f.Path, Languages: "jpn"})
 	return err
+}
+
+func (f *File) BeforeDelete() (err error) {
+	return os.Remove(f.Path)
 }

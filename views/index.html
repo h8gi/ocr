@@ -3,23 +3,21 @@
 <html lang="en">
   {{template "head" .}}
   <body>
-    <section>
+    <section id="filelist">
       <h2>ALL FILES</h2>
-      <dl>
-        {{range .}}
-        <dt><a href="/api/files/{{.Name}}">{{.Name}}</a></dt>
-        <dd>text: {{.Text}}</dd>
-        {{end}}
-      </dl>
+      <ul>
+        <li v-for="file in files">
+          <h3><a v-bind:href="'/api/files/' + file.name">(( file.name ))</a></h3>
+          <p>
+            (( file.text ))
+          </p>
+        </li>
+      </ul>
     </section>
 
-    <section>
+    <section id="uploader">
       <h2>FILE UPLOAD</h2>
-      <!-- <form action="/api/files" method="post" enctype="multipart/form-data"> -->
-	  <!--   <input name="file" type="file" value=""/> -->
-	  <!--   <input name="" type="submit" value="Submit"/> -->
-	  <!-- </form> -->
-      <input v-el="uploader" type="file" name="avatar" id="avatar" v-on="change:upload">      
+      <input type="file" name="file" @change="upload">
     </section>
    
     <script src="/static/js/app.js"></script>
